@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chill Guy Analyser</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+        select, input[type="range"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.2em;
+            display: none;
+        }
+        .slider-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        .slider-labels span {
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏄‍♂️ Chill Guy Analyser 🌊</h1>
+        
+        <div class="question">
+            <label for="vibe">How would you describe your general vibe?</label>
+            <select id="vibe">
+                <option value="laid_back">Laid back</option>
+                <option value="go_with_flow">Go with the flow</option>
+                <option value="intense">Intense</option>
+                <option value="stressed">Stressed out</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label>How often do you say "no worries"?</label>
+            <div class="slider-container">
+                <input type="range" id="noWorries" min="0" max="10" value="5">
+                <div class="slider-labels">
+                    <span>Never</span>
+                    <span>Sometimes</span>
+                    <span>All the time</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <label for="activity">What's your favorite weekend activity?</label>
+            <select id="activity">
+                <option value="beach">Hanging at the beach</option>
+                <option value="gaming">Gaming with friends</option>
+                <option value="sports">Playing sports</option>
+                <option value="working">Working overtime</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label>How do you handle unexpected problems?</label>
+            <select id="problemHandling">
+                <option value="whatever">Whatever happens, happens</option>
+                <option value="solution">Find a solution calmly</option>
+                <option value="stress">Get stressed out</option>
+                <option value="panic">Panic!</option>
+            </select>
+        </div>
+
+        <button onclick="analyseChill()">Analyse Chill Level</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function analyseChill() {
+            const vibe = document.getElementById('vibe').value;
+            const noWorries = parseInt(document.getElementById('noWorries').value);
+            const activity = document.getElementById('activity').value;
+            const problemHandling = document.getElementById('problemHandling').value;
+            
+            let chillScore = 0;
+            
+            // Calculate vibe score
+            if (vibe === 'laid_back') chillScore += 25;
+            else if (vibe === 'go_with_flow') chillScore += 20;
+            else if (vibe === 'intense') chillScore += 10;
+            else if (vibe === 'stressed') chillScore += 5;
+            
+            // Calculate "no worries" score
+            chillScore += noWorries * 2;
+            
+            // Calculate activity score
+            if (activity === 'beach') chillScore += 25;
+            else if (activity === 'gaming') chillScore += 20;
+            else if (activity === 'sports') chillScore += 15;
+            else if (activity === 'working') chillScore += 5;
+            
+            // Calculate problem handling score
+            if (problemHandling === 'whatever') chillScore += 25;
+            else if (problemHandling === 'solution') chillScore += 20;
+            else if (problemHandling === 'stress') chillScore += 10;
+            else if (problemHandling === 'panic') chillScore += 5;
+            
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            
+            let message = '';
+            let color = '';
+            
+            if (chillScore >= 80) {
+                message = '🏄‍♂️ Ultimate Chill Guy! You\'re as cool as a cucumber on a beach day.';
+                color = '#2ecc71';
+            } else if (chillScore >= 60) {
+                message = '😎 Pretty Chill! You know how to keep your cool most of the time.';
+                color = '#3498db';
+            } else if (chillScore >= 40) {
+                message = '😊 Moderately Chill. You have potential, just need to relax a bit more.';
+                color = '#f1c40f';
+            } else {
+                message = '😅 Could Be Chiller. Maybe try some meditation or beach walks?';
+                color = '#e74c3c';
+            }
+            
+            result.style.backgroundColor = color + '20';
+            result.style.color = color;
+            result.innerHTML = message;
+        }
+    </script>
+</body>
+</html>
